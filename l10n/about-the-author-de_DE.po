@@ -1,0 +1,110 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: About The Author v1.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2015-02-17 09:25:37+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#. translators: plugin header field 'Description'
+#: about-the-author.php:0
+#: about-the-author.php:66
+#@ about-the-author
+msgid "Provides a sidebarwidget with some information about the author of a blogarticle."
+msgstr "Erstellt ein Sidebarwidget mit einigen Informationen über den Autor des jeweiligen Blogartikels."
+
+#. translators: plugin header field 'Name'
+#: about-the-author.php:0
+#: about-the-author.php:71
+#@ about-the-author
+msgid "About The Author"
+msgstr "Über den Autor"
+
+#: about-the-author.php:88
+#@ about-the-author
+msgid "Title"
+msgstr "Titel"
+
+#: about-the-author.php:172
+#@ about-the-author
+msgid "Authorimage: "
+msgstr "Bild des Autors: "
+
+#: about-the-author.php:180
+#@ about-the-author
+msgid "We are sorry, but the author did't entered any information in his profile."
+msgstr "Es tut uns leid, aber der Autor dieses Artikels hat keine Informationen über sich hinterlassen."
+
+#: about-the-author.php:200
+#@ about-the-author
+msgid "Avatar"
+msgstr "Avatar"
+
+#: about-the-author.php:204
+#@ about-the-author
+msgid "Your Photo"
+msgstr "Dein Bild"
+
+#: about-the-author.php:207
+#@ about-the-author
+msgid "Upload Image"
+msgstr "Bild hochladen"
+
+#: about-the-author.php:208
+#@ about-the-author
+msgid "Upload a foto for your user profile. If you don't want to use a photo, leave this field blank."
+msgstr "Lade ein Foto hoch, oder lasse dieses Feld frei, wenn Du kein Foto verwenden willst."
+
+#: about-the-author.php:259
+#@ about-the-author
+msgid "Use This Image"
+msgstr "Dieses Bild nutzen"
+
+#: about-the-author.php:93
+#@ about-the-author
+msgid "Imagesize (in Pixel)"
+msgstr "Bildgröße (in Pixel)"
+
+#: about-the-author.php:98
+#@ about-the-author
+msgid "Like this Widget?"
+msgstr "Du magst dieses Widget?"
+
+#. translators: plugin header field 'Author'
+#: about-the-author.php:0
+#@ about-the-author
+msgid "H.-Peter Pfeufer"
+msgstr "H.-Peter Pfeufer"
+
+#. translators: plugin header field 'AuthorURI'
+#: about-the-author.php:0
+#@ about-the-author
+msgid "http://ppfeufer.de"
+msgstr "http://ppfeufer.de"
+
+#. translators: plugin header field 'Version'
+#: about-the-author.php:0
+#@ about-the-author
+msgid "1.3"
+msgstr ""
+
+#. translators: plugin header field 'PluginURI'
+#: about-the-author.php:0
+#@ about-the-author
+msgid "http://ppfeufer.de/wordpress-plugin/about-the-author/"
+msgstr "http://ppfeufer.de/wordpress-plugin/about-the-author/"
+
