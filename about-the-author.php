@@ -68,7 +68,7 @@ class About_The_Author extends \WP_Widget {
 
 		$control_ops = array();
 
-		$this->WP_Widget('about_the_author', __('About The Author', $this->var_sTextdomain), $widget_ops, $control_ops);
+		parent::__construct('about_the_author', __('About The Author', $this->var_sTextdomain), $widget_ops, $control_ops);
 	} // END function About_The_Author()
 
 	/**
