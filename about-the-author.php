@@ -116,10 +116,10 @@ class About_The_Author extends \WP_Widget {
 		));
 
 		$instance['about-the-author_title'] = (string) strip_tags($new_instance['about-the-author_title']);
+		$instance['about-the-author_imagesize'] = '100';
+
 		if(!empty($new_instance['about-the-author_imagesize'])) {
 			$instance['about-the-author_imagesize'] = (string) strip_tags($new_instance['about-the-author_imagesize']);
-		} else {
-			$instance['about-the-author_imagesize'] = '100';
 		}
 
 		return $instance;
@@ -247,9 +247,11 @@ class About_The_Author extends \WP_Widget {
 		global $current_screen;
 
 		if($current_screen->id == 'profile' || $current_screen->id == 'user-edit') {
+			$javaScript = (WP_DEBUG === true) ? $this->get_url('/js/jquery-upload.js') : $this->get_url('/js/jquery-upload.min.js');
+
 			wp_enqueue_script('media-upload');
 			wp_enqueue_script('thickbox');
-			wp_register_script('about-the-author-upload', $this->get_url('/js/jquery-upload-min.js'), array(
+			wp_register_script('about-the-author-upload', $javaScript, array(
 				'jquery',
 				'media-upload',
 				'thickbox'
@@ -268,6 +270,8 @@ class About_The_Author extends \WP_Widget {
 	 * @since 0.1
 	 */
 	function load_css() {
+		$css = (WP_DEBUG === true) ? $this->get_url('/css/about-the-author.css') : $this->get_url('/css/about-the-author.min.css');
+
 		wp_register_style('about-the-author-css', $this->get_url('/css/about-the-author.css'));
 		wp_enqueue_style('about-the-author-css');
 	}
@@ -365,24 +369,24 @@ class About_The_Author extends \WP_Widget {
 				$changelog = (array) preg_split('~[\r\n]+~', trim($matches[1]));
 
 				echo '</div><div class="update-message" style="font-weight: normal;"><strong>What\'s new:</strong>';
-				$ul = false;
+				$hasUl = false;
 				$version = 99;
 
 				foreach($changelog as $index => $line) {
 					if(version_compare($version, $array_ATAW_Data['Version'], ">")) {
 						if(preg_match('~^\s*\*\s*~', $line)) {
-							if(!$ul) {
+							if(!$hasUl) {
 								echo '<ul style="list-style: disc; margin-left: 20px;">';
-								$ul = true;
-							} // END if(!$ul)
+								$hasUl = true;
+							} // END if(!$hasUl)
 
 							$line = preg_replace('~^\s*\*\s*~', '', $line);
 							echo '<li>' . $line . '</li>';
 						} else {
-							if($ul) {
+							if($hasUl) {
 								echo '</ul>';
-								$ul = false;
-							} // END if($ul)
+								$hasUl = false;
+							} // END if($hasUl)
 
 							$version = trim($line, " =");
 							echo '<p style="margin: 5px 0;">' . htmlspecialchars($line) . '</p>';
@@ -390,9 +394,9 @@ class About_The_Author extends \WP_Widget {
 					} // END if(version_compare($version, TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION,">"))
 				} // END foreach($changelog as $index => $line)
 
-				if($ul) {
+				if($hasUl) {
 					echo '</ul><div style="clear: left;"></div>';
-				} // END if($ul)
+				} // END if($hasUl)
 
 				echo '</div>';
 			} // END if(preg_match($regexp, $data, $matches))
