@@ -272,9 +272,9 @@ class About_The_Author extends \WP_Widget {
 	function load_css() {
 		$css = (WP_DEBUG === true) ? $this->get_url('/css/about-the-author.css') : $this->get_url('/css/about-the-author.min.css');
 
-		wp_register_style('about-the-author-css', $this->get_url('/css/about-the-author.css'));
+		wp_register_style('about-the-author-css', $css);
 		wp_enqueue_style('about-the-author-css');
-	}
+	} // END function load_css()
 
 	/**
 	 * Getting the right thumbnailsize
