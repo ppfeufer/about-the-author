@@ -126,19 +126,17 @@ class About_The_Author extends \WP_Widget {
 	 * @see WP_Widget::widget()
 	 */
 	function widget($args, $instance) {
-		if(\is_single()) {
-			\extract($args);
-
-			echo $before_widget;
+		if(\is_singular()) {
+			echo $args['before_widget'];
 
 			$title = (empty($instance['about-the-author_title'])) ? '' : \apply_filters('widget_title', $instance['about-the-author_title']);
 
 			if(!empty($title)) {
-				echo $before_title . $title . $after_title;
+				echo $args['before_title'] . $title . $args['after_title'];
 			} // END if(!empty($title))
 
 			echo $this->about_the_author_output($instance, 'widget');
-			echo $after_widget;
+			echo $args['after_widget'];
 		}
 	} // END function widget($args, $instance)
 
