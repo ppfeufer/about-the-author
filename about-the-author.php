@@ -23,52 +23,45 @@ class About_The_Author extends \WP_Widget {
 		$this->var_sTextdomain = 'about-the-author';
 		$this->var_sFlattrLink = 'http://flattr.com/thing/601539/WordPress-Plugin-About-The-Author';
 
-		if(function_exists('load_plugin_textdomain')) {
-			load_plugin_textdomain($this->var_sTextdomain, PLUGINDIR . '/' . dirname(plugin_basename(__FILE__)) . '/l10n', dirname(plugin_basename(__FILE__)) . '/l10n');
+		if(\function_exists('load_plugin_textdomain')) {
+			\load_plugin_textdomain($this->var_sTextdomain, \PLUGINDIR . '/' . \dirname(\plugin_basename(__FILE__)) . '/l10n', \dirname(\plugin_basename(__FILE__)) . '/l10n');
 		}
 
-		add_image_size('about-the-author-userphoto', 250, 250, true);
+		\add_image_size('about-the-author-userphoto', 250, 250, true);
 
-		add_action('admin_head', array(
-			&$this,
+		\add_action('admin_head', array(
+			$this,
 			'load_uploadscripts'
 		));
 
-		add_action('wp_head', array(
-			&$this,
+		\add_action('wp_head', array(
+			$this,
 			'load_css'
 		));
 
-		add_action('show_user_profile', array(
+		\add_action('show_user_profile', array(
 			$this,
 			'userimage_in_profile'
 		));
 
-		add_action('edit_user_profile', array(
+		\add_action('edit_user_profile', array(
 			$this,
 			'userimage_in_profile'
 		));
 
-		add_action('profile_update', array(
+		\add_action('profile_update', array(
 			$this,
 			'userimage_update'
 		));
 
-		if(ini_get('allow_url_fopen') || function_exists('curl_init')) {
-			add_action('in_plugin_update_message-' . plugin_basename(__FILE__), array(
-				$this,
-				'update_notice'
-			));
-		}
-
 		$widget_ops = array(
 			'classname' => 'about_the_author',
-			'description' => __('Provides a sidebarwidget with some information about the author of a blogarticle.', $this->var_sTextdomain)
+			'description' => \__('Provides a sidebarwidget with some information about the author of a blogarticle.', $this->var_sTextdomain)
 		);
 
 		$control_ops = array();
 
-		parent::__construct('about_the_author', __('About The Author', $this->var_sTextdomain), $widget_ops, $control_ops);
+		parent::__construct('about_the_author', \__('About The Author', $this->var_sTextdomain), $widget_ops, $control_ops);
 	} // END function About_The_Author()
 
 	/**
@@ -79,23 +72,23 @@ class About_The_Author extends \WP_Widget {
 	 * @see WP_Widget::form()
 	 */
 	function form($instance) {
-		$instance = wp_parse_args((array) $instance, array(
+		$instance = \wp_parse_args((array) $instance, array(
 			'about-the-author_title' => '',
 			'about-the-author_imagesize' => '100'
 		));
 
 		// Titel
-		echo '<p style="border-bottom: 1px solid #DFDFDF;"><strong>' . __('Title', $this->var_sTextdomain) . '</strong></p>';
+		echo '<p style="border-bottom: 1px solid #DFDFDF;"><strong>' . \__('Title', $this->var_sTextdomain) . '</strong></p>';
 		echo '<p><input id="' . $this->get_field_id('about-the-author_title') . '" name="' . $this->get_field_name('about-the-author_title') . '" type="text" value="' . $instance['about-the-author_title'] . '" /></p>';
 		echo '<p style="clear:both;"></p>';
 
 		// Imagesize
-		echo '<p style="border-bottom: 1px solid #DFDFDF;"><strong>' . __('Imagesize (in Pixel)', $this->var_sTextdomain) . '</strong></p>';
+		echo '<p style="border-bottom: 1px solid #DFDFDF;"><strong>' . \__('Imagesize (in Pixel)', $this->var_sTextdomain) . '</strong></p>';
 		echo '<p><input id="' . $this->get_field_id('about-the-author_imagesize') . '" name="' . $this->get_field_name('about-the-author_imagesize') . '" type="text" value="' . $instance['about-the-author_imagesize'] . '" /></p>';
 		echo '<p style="clear:both;"></p>';
 
 		// Donate
-		echo '<p style="border-bottom: 1px solid #DFDFDF;"><strong>' . __('Like this Widget?', $this->var_sTextdomain) . '</strong></p>';
+		echo '<p style="border-bottom: 1px solid #DFDFDF;"><strong>' . \__('Like this Widget?', $this->var_sTextdomain) . '</strong></p>';
 		echo '<p><a href="' . $this->var_sFlattrLink . '" target="_blank"><img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></p>';
 		echo '<p style="clear:both;"></p>';
 	} // END function form($instance)
@@ -110,16 +103,16 @@ class About_The_Author extends \WP_Widget {
 	function update($new_instance, $old_instance) {
 		$instance = $old_instance;
 
-		$new_instance = wp_parse_args((array) $new_instance, array(
+		$new_instance = \wp_parse_args((array) $new_instance, array(
 			'about-the-author_title' => '',
 			'about-the-author_imagesize' => '100'
 		));
 
-		$instance['about-the-author_title'] = (string) strip_tags($new_instance['about-the-author_title']);
+		$instance['about-the-author_title'] = (string) \strip_tags($new_instance['about-the-author_title']);
 		$instance['about-the-author_imagesize'] = '100';
 
 		if(!empty($new_instance['about-the-author_imagesize'])) {
-			$instance['about-the-author_imagesize'] = (string) strip_tags($new_instance['about-the-author_imagesize']);
+			$instance['about-the-author_imagesize'] = (string) \strip_tags($new_instance['about-the-author_imagesize']);
 		}
 
 		return $instance;
@@ -133,12 +126,12 @@ class About_The_Author extends \WP_Widget {
 	 * @see WP_Widget::widget()
 	 */
 	function widget($args, $instance) {
-		if(is_single()) {
-			extract($args);
+		if(\is_single()) {
+			\extract($args);
 
 			echo $before_widget;
 
-			$title = (empty($instance['about-the-author_title'])) ? '' : apply_filters('widget_title', $instance['about-the-author_title']);
+			$title = (empty($instance['about-the-author_title'])) ? '' : \apply_filters('widget_title', $instance['about-the-author_title']);
 
 			if(!empty($title)) {
 				echo $before_title . $title . $after_title;
@@ -160,16 +153,16 @@ class About_The_Author extends \WP_Widget {
 	private function about_the_author_output($args = array(), $position) {
 		global $post;
 
-		$obj_User = get_user_by('id', $post->post_author);
+		$obj_User = \get_user_by('id', $post->post_author);
 
-		$array_Userphoto = get_user_meta($post->post_author, 'userphoto');
-		$array_UserDescription = get_user_meta($post->post_author, 'description');
+		$array_Userphoto = \get_user_meta($post->post_author, 'userphoto');
+		$array_UserDescription = \get_user_meta($post->post_author, 'description');
 
 		echo '<ul class="about-the-author author-info clearfix"><li>';
 
 		if(!empty($array_Userphoto['0']) || !empty($array_UserDescription['0'])) {
 			if(isset($array_Userphoto['0'])) {
-				echo '<img class="about-the-author author-photo" src="' . $array_Userphoto['0'] . '" alt="' . __('Authorimage: ', $this->var_sTextdomain) . $obj_User->display_name . '" title="' . __('Authorimage: ', $this->var_sTextdomain) . $obj_User->display_name . '" width="' . $args['about-the-author_imagesize'] . '" height="auto" />';
+				echo '<img class="about-the-author author-photo" src="' . $array_Userphoto['0'] . '" alt="' . \__('Authorimage: ', $this->var_sTextdomain) . $obj_User->display_name . '" title="' . \__('Authorimage: ', $this->var_sTextdomain) . $obj_User->display_name . '" width="' . $args['about-the-author_imagesize'] . '" height="auto" />';
 			} // END if(isset($array_Userphoto['0']))
 
 			if(!empty($array_UserDescription['0'])) {
@@ -177,7 +170,7 @@ class About_The_Author extends \WP_Widget {
 				echo '<span class="about-the-author author-description">' . $array_UserDescription['0'] . '</span>';
 			} // END if(isset($array_UserDescription['0']))
 		} else {
-			echo __('We are sorry, but the author did\'t entered any information in his profile.', $this->var_sTextdomain);
+			echo \__('We are sorry, but the author did\'t entered any information in his profile.', $this->var_sTextdomain);
 		} // END if(isset($array_Userphoto['0']) || isset($array_UserDescription['0']))
 
 		echo '</li></ul>';
@@ -194,18 +187,18 @@ class About_The_Author extends \WP_Widget {
 		if($current_screen->id == 'profile' || $current_screen->id == 'user-edit') {
 			global $profileuser;
 
-			$array_UserPhoto = get_user_meta($profileuser->ID, 'userphoto');
+			$array_UserPhoto = \get_user_meta($profileuser->ID, 'userphoto');
 			$var_sUserPhoto = (isset($array_UserPhoto['0'])) ? $array_UserPhoto['0'] : '';
 
-			echo '<h3>' . __('Avatar', $this->var_sTextdomain) . '</h3>';
+			echo '<h3>' . \__('Avatar', $this->var_sTextdomain) . '</h3>';
 			echo '<table class="form-table">
 					<tbody>
 						<tr>
-							<th><label for="user_login">' . __('Your Photo', $this->var_sTextdomain) . '</label></th>
+							<th><label for="user_login">' . \__('Your Photo', $this->var_sTextdomain) . '</label></th>
 							<td>
 								<input type="text" class="regular-text" value="' . $var_sUserPhoto . '" id="userphoto" name="userphoto">
-								<input id="upload_userphoto_button" type="button" value="' . __('Upload Image', $this->var_sTextdomain) . '" /><br />
-								<span class="description">' . __('Upload a foto for your user profile. If you don\'t want to use a photo, leave this field blank.', $this->var_sTextdomain) . '</span>
+								<input id="upload_userphoto_button" type="button" value="' . \__('Upload Image', $this->var_sTextdomain) . '" /><br />
+								<span class="description">' . \__('Upload a foto for your user profile. If you don\'t want to use a photo, leave this field blank.', $this->var_sTextdomain) . '</span>
 							</td>
 						</tr>
 					</tbody>
@@ -231,9 +224,9 @@ class About_The_Author extends \WP_Widget {
 					$var_sUserPhoto = (string) $_REQUEST['userphoto'];
 				} // END if($array_ImageMeta)
 
-				update_user_meta($_REQUEST['user_id'], 'userphoto', $var_sUserPhoto);
+				\update_user_meta($_REQUEST['user_id'], 'userphoto', $var_sUserPhoto);
 			} else {
-				delete_user_meta($_REQUEST['user_id'], 'userphoto');
+				\delete_user_meta($_REQUEST['user_id'], 'userphoto');
 			} // END if(!empty($_REQUEST['userphoto']))
 		} // END if($current_screen->id == 'profile' || $current_screen->id == 'user-edit')
 	} // END function userimage_update()
@@ -247,20 +240,20 @@ class About_The_Author extends \WP_Widget {
 		global $current_screen;
 
 		if($current_screen->id == 'profile' || $current_screen->id == 'user-edit') {
-			$javaScript = (WP_DEBUG === true) ? $this->get_url('/js/jquery-upload.js') : $this->get_url('/js/jquery-upload.min.js');
+			$javaScript = (\WP_DEBUG === true) ? $this->get_url('/js/jquery-upload.js') : $this->get_url('/js/jquery-upload.min.js');
 
-			wp_enqueue_script('media-upload');
-			wp_enqueue_script('thickbox');
-			wp_register_script('about-the-author-upload', $javaScript, array(
+			\wp_enqueue_script('media-upload');
+			\wp_enqueue_script('thickbox');
+			\wp_register_script('about-the-author-upload', $javaScript, array(
 				'jquery',
 				'media-upload',
 				'thickbox'
 			));
-			wp_enqueue_script('about-the-author-upload');
-			wp_localize_script('about-the-author-upload', 'about_the_author_localizing_upload_js', array(
+			\wp_enqueue_script('about-the-author-upload');
+			\wp_localize_script('about-the-author-upload', 'about_the_author_localizing_upload_js', array(
 				'use_this_image' => __('Use This Image', $this->var_sTextdomain)
 			));
-			wp_enqueue_style('thickbox');
+			\wp_enqueue_style('thickbox');
 		} // END if($current_screen->id == 'profile' || $current_screen->id == 'user-edit')
 	} // END function load_uploadscripts()
 
@@ -270,10 +263,10 @@ class About_The_Author extends \WP_Widget {
 	 * @since 0.1
 	 */
 	function load_css() {
-		$css = (WP_DEBUG === true) ? $this->get_url('/css/about-the-author.css') : $this->get_url('/css/about-the-author.min.css');
+		$css = (\WP_DEBUG === true) ? $this->get_url('/css/about-the-author.css') : $this->get_url('/css/about-the-author.min.css');
 
-		wp_register_style('about-the-author-css', $css);
-		wp_enqueue_style('about-the-author-css');
+		\wp_register_style('about-the-author-css', $css);
+		\wp_enqueue_style('about-the-author-css');
 	} // END function load_css()
 
 	/**
@@ -296,8 +289,8 @@ class About_The_Author extends \WP_Widget {
 		 * @var regex $var_sPattern
 		 */
 		$var_sPattern = '/-[0-9\/]+x[0-9\/]+/';
-		if(preg_match($var_sPattern, $var_sGuid)) {
-			$var_sGuid = preg_replace($var_sPattern, '', $var_sGuid);
+		if(\preg_match($var_sPattern, $var_sGuid)) {
+			$var_sGuid = \preg_replace($var_sPattern, '', $var_sGuid);
 		} // END if(preg_match($var_sPattern, $var_sGuid))
 
 		/**
@@ -316,7 +309,7 @@ class About_The_Author extends \WP_Widget {
 					' . $wpdb->posts . '.guid = "' . $var_sGuid . '"
 					AND ' . $wpdb->postmeta . '.post_id = ' . $wpdb->posts . '.ID
 					AND ' . $wpdb->postmeta . '.meta_key = "_wp_attachment_metadata";';
-		$array_ImageMeta = unserialize($wpdb->get_var($var_qry));
+		$array_ImageMeta = \unserialize($wpdb->get_var($var_qry));
 
 		/**
 		 * Check if the returned thumbnail has the right dimensions.
@@ -326,7 +319,7 @@ class About_The_Author extends \WP_Widget {
 		 */
 		if($_wp_additional_image_sizes[$var_sThumbnail]['width'] == $array_ImageMeta['sizes'][$var_sThumbnail]['width']) {
 			$array_Logo = array(
-				'url' => substr($var_sGuid, 0, strrpos($var_sGuid, '/')) . '/' . $array_ImageMeta['sizes'][$var_sThumbnail]['file'],
+				'url' => \substr($var_sGuid, 0, \strrpos($var_sGuid, '/')) . '/' . $array_ImageMeta['sizes'][$var_sThumbnail]['file'],
 				'width' => $array_ImageMeta['sizes'][$var_sThumbnail]['width'],
 				'height' => $array_ImageMeta['sizes'][$var_sThumbnail]['height']
 			);
@@ -338,72 +331,6 @@ class About_The_Author extends \WP_Widget {
 	} // END function get_thumbnail_by_guid($var_sGuid)
 
 	/**
-	 * A little notice on pluginupdates ....
-	 *
-	 * @since 0.1
-	 */
-	function update_notice() {
-		$array_ATAW_Data = get_plugin_data(__FILE__);
-		$var_sUserAgent = 'Mozilla/5.0 (X11; Linux x86_64; rv:5.0) Gecko/20100101 Firefox/5.0 WorPress Plugin About the Author (Version: ' . $array_ATAW_Data['Version'] . ') running on: ' . get_bloginfo('url');
-		$url = 'http://plugins.trac.wordpress.org/browser/about-the-author/trunk/readme.txt?format=txt';
-		$data = '';
-
-		if(ini_get('allow_url_fopen')) {
-			$data = file_get_contents($url);
-		} else {
-			if(function_exists('curl_init')) {
-				$cUrl_Channel = curl_init();
-				curl_setopt($cUrl_Channel, CURLOPT_URL, $url);
-				curl_setopt($cUrl_Channel, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt($cUrl_Channel, CURLOPT_USERAGENT, $var_sUserAgent);
-				$data = curl_exec($cUrl_Channel);
-				curl_close($cUrl_Channel);
-			} // END if(function_exists('curl_init'))
-		} // END if(ini_get('allow_url_fopen'))
-
-		if($data) {
-			$matches = null;
-			$regexp = '~==\s*Changelog\s*==\s*=\s*[0-9.]+\s*=(.*)(=\s*' . preg_quote($array_ATAW_Data['Version']) . '\s*=|$)~Uis';
-
-			if(preg_match($regexp, $data, $matches)) {
-				$changelog = (array) preg_split('~[\r\n]+~', trim($matches[1]));
-
-				echo '</div><div class="update-message" style="font-weight: normal;"><strong>What\'s new:</strong>';
-				$hasUl = false;
-				$version = 99;
-
-				foreach($changelog as $index => $line) {
-					if(version_compare($version, $array_ATAW_Data['Version'], ">")) {
-						if(preg_match('~^\s*\*\s*~', $line)) {
-							if(!$hasUl) {
-								echo '<ul style="list-style: disc; margin-left: 20px;">';
-								$hasUl = true;
-							} // END if(!$hasUl)
-
-							$line = preg_replace('~^\s*\*\s*~', '', $line);
-							echo '<li>' . $line . '</li>';
-						} else {
-							if($hasUl) {
-								echo '</ul>';
-								$hasUl = false;
-							} // END if($hasUl)
-
-							$version = trim($line, " =");
-							echo '<p style="margin: 5px 0;">' . htmlspecialchars($line) . '</p>';
-						} // END if(preg_match('~^\s*\*\s*~', $line))
-					} // END if(version_compare($version, TWOCLICK_SOCIALMEDIA_BUTTONS_VERSION,">"))
-				} // END foreach($changelog as $index => $line)
-
-				if($hasUl) {
-					echo '</ul><div style="clear: left;"></div>';
-				} // END if($hasUl)
-
-				echo '</div>';
-			} // END if(preg_match($regexp, $data, $matches))
-		} // END if($data)
-	} // END function update_notice()
-
-	/**
 	 * Returning the url
 	 *
 	 * @since 0.1
@@ -412,8 +339,8 @@ class About_The_Author extends \WP_Widget {
 	 * @return Ambigous <string, mixed>
 	 */
 	function get_url($path = '') {
-		return plugins_url(ltrim($path, '/'), __FILE__);
+		return \plugins_url(ltrim($path, '/'), __FILE__);
 	} // END function get_url( $path = '' )
 } // END class About_The_Author extends \WP_Widget
 
-add_action('widgets_init', create_function('', 'return register_widget("\PPWP\Plugin\AboutTheAuthor\About_The_Author");'));
+\add_action('widgets_init', \create_function('', 'return register_widget("\PPWP\Plugin\AboutTheAuthor\About_The_Author");'));
