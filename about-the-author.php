@@ -10,7 +10,7 @@
  * Domain Path: /l10n
  */
 
-namespace PPWP\Plugin\AboutTheAuthor;
+namespace WordPress\Plugins\AboutTheAuthor;
 
 class About_The_Author extends \WP_Widget {
 	private $var_sTextdomain;
@@ -341,4 +341,4 @@ class About_The_Author extends \WP_Widget {
 	} // END function get_url( $path = '' )
 } // END class About_The_Author extends \WP_Widget
 
-\add_action('widgets_init', \create_function('', 'return register_widget("\PPWP\Plugin\AboutTheAuthor\About_The_Author");'));
+\add_action('widgets_init', \create_function('', 'return register_widget("\WordPress\Plugins\AboutTheAuthor\About_The_Author");'));
